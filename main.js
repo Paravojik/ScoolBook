@@ -17,7 +17,7 @@ $('.box__enter__class__btn').click(function(){
         
 $('#page__main__middlle__your__classess'+countOfClass).css('display','flex')
 $('#page__main__middlle__your__classess__class__name'+countOfClass).html('Class: '+box__enter__class__nameOfClass.value)
-$('#page__main__middlle__your__classess__class__lesson'+countOfClass).html('Class: '+box__enter__class__nameOfLesson.value)
+$('#page__main__middlle__your__classess__class__lesson'+countOfClass).html('Lesson: '+box__enter__class__nameOfLesson.value)
 
 $('.box__enter__class').slideUp(100)
 $('.wrap').css('filter','blur(0px)')
@@ -61,16 +61,18 @@ console.log(arrOfClasses__lesson)
 
 // console.log(arrOfTeachers[0].length)
 let lengthOfId=(Math.round(window.performance.timeOrigin)+(Math.round(Math.random()*9)).toString()).length
-
+console.log(lengthOfId)
 
 
 $('.page__login__card__btn2').click(function(){
 
 if(page__login__card__inp__username2.value.length>0 && page__login__card__inp__password2.value.length>0){
     let isTeacher =0;
+    let a=0
 $('.page__main__header__user').html('Teacher: '+page__login__card__inp__username2.value)
 for(let i=0;i<=arrOfTeachers.length-1;i++){
- 
+//  console.log(arrOfTeachers[i].length+1)
+//  console.log(arrOfTeachers[i])
     let currentTeacher=arrOfTeachers[i].length+1
 
     console.log(arrOfTeachers[i].substring(0,currentTeacher-lengthOfId))
@@ -78,23 +80,30 @@ for(let i=0;i<=arrOfTeachers.length-1;i++){
 if(arrOfTeachers[i].substring(0,currentTeacher-lengthOfId) == page__login__card__inp__username2.value+page__login__card__inp__password2.value){
 
     isTeacher=1
-    genID=arrOfTeachers[i].substring(currentTeacher-lengthOfId+1)
+    genID=arrOfTeachers[i].substring(currentTeacher-lengthOfId)
     console.log(genID)
     for(let i=arrOfClasses__name.length-1;i>=0;i--){
-        let a=0
+       
 let currentClassName=arrOfClasses__name[i].length
+let currentLessonName=arrOfClasses__lesson[i].length
+console.log(arrOfClasses__name[i])
+console.log(currentClassName)
 console.log(arrOfClasses__name[i].substring(currentClassName-lengthOfId+1))
         if(arrOfClasses__name[i].substring(currentClassName-lengthOfId+1)==genID){
             if(arrOfClasses__name[i].length>0){
                 a++
+                console.log(a)
                 $('#page__main__middlle__your__classess'+a).css('display','flex')
-                $('#page__main__middlle__your__classess__class__name'+a).html('Class: '+box__enter__class__nameOfClass.value)
-$('#page__main__middlle__your__classess__class__lesson'+a).html('Class: '+box__enter__class__nameOfLesson.value)
+                $('#page__main__middlle__your__classess__class__name'+a).html('Class: '+arrOfClasses__name[i].substring(0,currentClassName-lengthOfId+1))
+$('#page__main__middlle__your__classess__class__lesson'+a).html('Lesson: '+arrOfClasses__lesson[i].substring(0,currentLessonName-lengthOfId+1))
             }
         }
+        
+
 
     }
 }
+
 }
 if(isTeacher==0){
     genID=Math.round(window.performance.timeOrigin)+Math.round(Math.random()*9)
@@ -108,6 +117,7 @@ localStorage.setItem('arrOfTeachers__LS',JSON.stringify(arrOfTeachers))
     $('.page__login').css('display','none')
     $('.page__main__header').css('display','flex')
     $('.page__main').css('display','flex')
+    countOfClass+=a
 }
 })
 
